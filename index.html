@@ -1,0 +1,2548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantGuard AI | Smart Plant Health</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #247348;
+            --green-dark: #173f2b;
+            --green-light: #e9f4e9;
+            --lime: #c7e8a2;
+            --cream: #faf9f4;
+            --text: #203329;
+            --muted: #748078;
+            --white: #ffffff;
+            --border: #e6e9e1;
+            --shadow: 0 18px 55px rgba(31, 72, 46, 0.09);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .container {
+            width: min(1160px, 90%);
+            margin: auto;
+        }
+
+        /* NAVIGATION */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(250, 249, 244, 0.94);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(230, 233, 225, 0.8);
+        }
+
+        .nav-inner {
+            min-height: 78px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-family: "Manrope", sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: var(--green);
+            color: white;
+            font-size: 23px;
+        }
+
+        .brand span span {
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            color: #59675e;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        .nav-cta {
+            background: var(--green);
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+
+        .nav-cta:hover,
+        .primary-btn:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 82px 0 90px;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            border: 1px solid #dce8d7;
+            background: #f0f6eb;
+            color: var(--green);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            background: #63a75d;
+            border-radius: 50%;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Manrope", sans-serif;
+        }
+
+        .hero h1 {
+            margin-top: 24px;
+            font-size: clamp(42px, 5.2vw, 68px);
+            line-height: 1.12;
+            letter-spacing: -3px;
+            font-weight: 800;
+        }
+
+        .hero h1 .highlight {
+            color: var(--green);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-description {
+            max-width: 510px;
+            margin-top: 23px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            min-height: 51px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 13px;
+            padding: 0 23px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .primary-btn {
+            border: none;
+            background: var(--green);
+            color: white;
+        }
+
+        .secondary-btn {
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+        }
+
+        .secondary-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .hero-note {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 23px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .hero-note span {
+            color: var(--green);
+            font-size: 16px;
+        }
+
+        /* HERO ILLUSTRATION */
+
+        .hero-art {
+            min-height: 450px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .art-circle {
+            width: min(390px, 90%);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #e6f0dc;
+            position: relative;
+            display: grid;
+            place-items: center;
+        }
+
+        .art-circle::before {
+            content: "";
+            position: absolute;
+            inset: 25px;
+            border: 1px dashed #b8d2a7;
+            border-radius: 50%;
+        }
+
+        .plant-illustration {
+            width: 230px;
+            height: 270px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stem {
+            position: absolute;
+            width: 7px;
+            height: 180px;
+            background: #477d4d;
+            border-radius: 20px;
+            left: 111px;
+            bottom: 28px;
+            transform: rotate(-5deg);
+        }
+
+        .leaf {
+            position: absolute;
+            width: 88px;
+            height: 53px;
+            background: #438957;
+            border-radius: 90% 5% 90% 5%;
+        }
+
+        .leaf::after {
+            content: "";
+            position: absolute;
+            width: 65%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.55);
+            top: 50%;
+            left: 12%;
+            transform: rotate(-24deg);
+        }
+
+        .leaf-one {
+            top: 42px;
+            left: 22px;
+            transform: rotate(18deg);
+        }
+
+        .leaf-two {
+            top: 13px;
+            right: 19px;
+            transform: scaleX(-1) rotate(12deg);
+            background: #6cae6e;
+        }
+
+        .leaf-three {
+            top: 105px;
+            left: 12px;
+            transform: rotate(35deg);
+            background: #75ad67;
+        }
+
+        .leaf-four {
+            top: 91px;
+            right: 7px;
+            transform: scaleX(-1) rotate(30deg);
+        }
+
+        .leaf-five {
+            top: 164px;
+            left: 42px;
+            transform: rotate(25deg);
+            width: 75px;
+            height: 45px;
+            background: #3e7548;
+        }
+
+        .pot {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 135px;
+            height: 92px;
+            background: #d18a5c;
+            clip-path: polygon(5% 0, 95% 0, 82% 100%, 18% 100%);
+            border-radius: 4px;
+        }
+
+        .pot-rim {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 145px;
+            height: 18px;
+            border-radius: 5px;
+            background: #b97149;
+        }
+
+        .floating-card {
+            position: absolute;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            background: white;
+            border: 1px solid #edf0e9;
+            border-radius: 16px;
+            padding: 14px 17px;
+            box-shadow: var(--shadow);
+        }
+
+        .floating-card .icon {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            background: var(--green-light);
+            border-radius: 12px;
+            font-size: 21px;
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .floating-card small {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .card-top {
+            top: 55px;
+            right: -2px;
+        }
+
+        .card-bottom {
+            bottom: 49px;
+            left: -7px;
+        }
+
+        /* SECTION COMMON */
+
+        .section {
+            padding: 82px 0;
+        }
+
+        .section-heading {
+            max-width: 650px;
+            margin: 0 auto 42px;
+            text-align: center;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 17px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(29px, 3.5vw, 43px);
+            line-height: 1.2;
+            letter-spacing: -1.5px;
+        }
+
+        .section-heading p {
+            margin-top: 15px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* FEATURES */
+
+        .features-section {
+            background: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 29px;
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            background: #fff;
+            transition: 0.25s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: #c9ddc4;
+        }
+
+        .feature-icon {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: var(--green-light);
+            font-size: 25px;
+            margin-bottom: 21px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        /* SCANNER */
+
+        .scanner-section {
+            background: #f0f4eb;
+        }
+
+        .scanner-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 45px;
+            align-items: start;
+        }
+
+        .scanner-intro {
+            padding-top: 18px;
+        }
+
+        .scanner-intro h2 {
+            font-size: clamp(30px, 3.4vw, 43px);
+            line-height: 1.2;
+            letter-spacing: -1.5px;
+            margin: 18px 0;
+        }
+
+        .scanner-intro p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .scanner-tips {
+            margin-top: 25px;
+            display: grid;
+            gap: 13px;
+        }
+
+        .tip {
+            display: flex;
+            gap: 11px;
+            align-items: flex-start;
+            font-size: 13px;
+            color: #506257;
+        }
+
+        .tip span {
+            color: var(--green);
+            font-weight: 800;
+        }
+
+        .scanner-card {
+            padding: 30px;
+            background: white;
+            border: 1px solid #e4e9df;
+            border-radius: 23px;
+            box-shadow: 0 14px 45px rgba(35, 70, 44, 0.06);
+        }
+
+        .scanner-card h3 {
+            font-size: 21px;
+            margin-bottom: 5px;
+        }
+
+        .scanner-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 23px;
+        }
+
+        .drop-zone {
+            min-height: 235px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 2px dashed #cbd9c7;
+            border-radius: 17px;
+            background: #fbfcf8;
+            transition: 0.2s;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .drop-zone.dragover {
+            background: #edf7e9;
+            border-color: var(--green);
+        }
+
+        .upload-icon {
+            width: 61px;
+            height: 61px;
+            display: grid;
+            place-items: center;
+            background: var(--green-light);
+            color: var(--green);
+            font-size: 28px;
+            border-radius: 18px;
+            margin-bottom: 14px;
+        }
+
+        .drop-zone strong {
+            font-size: 15px;
+        }
+
+        .drop-zone p {
+            margin-top: 7px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .browse-text {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .file-types {
+            margin-top: 12px;
+            font-size: 11px;
+            color: #929b92;
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .preview-wrap {
+            display: none;
+            width: 100%;
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        .preview-wrap img {
+            max-width: 100%;
+            max-height: 260px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .file-name {
+            margin-top: 9px;
+            color: var(--muted);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .scanner-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .scanner-actions button {
+            flex: 1;
+        }
+
+        .secondary-btn:disabled,
+        .primary-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status-message {
+            display: none;
+            margin-top: 17px;
+            padding: 13px 15px;
+            border-radius: 12px;
+            background: #f3f5f0;
+            color: #526257;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .status-message.error {
+            display: block;
+            background: #fff0ee;
+            color: #a23c32;
+        }
+
+        .status-message.success {
+            display: block;
+            background: #edf7e9;
+            color: #28643c;
+        }
+
+        .status-message.loading {
+            display: block;
+        }
+
+        /* RESULTS */
+
+        .result-card {
+            display: none;
+            margin-top: 22px;
+            padding: 24px;
+            border: 1px solid #dce9d7;
+            border-radius: 17px;
+            background: #f9fcf6;
+        }
+
+.health-status {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 7px 12px;
+    border-radius: 20px;
+    background: #edf7e9;
+    color: #28643c;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.health-status.warning {
+    background: #fff3df;
+    color: #8a5a12;
+}
+
+.health-status.neutral {
+    background: #f0f2ed;
+    color: #59675e;
+}
+
+.scan-again-btn {
+    width: 100%;
+    margin-top: 22px;
+}
+
+        .result-label {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 30px;
+            background: #e4f2df;
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-card h3 {
+            margin-top: 13px;
+            font-size: 23px;
+            overflow-wrap: anywhere;
+        }
+
+        .confidence-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .confidence-row strong {
+            color: var(--green);
+        }
+
+        .progress-track {
+            height: 8px;
+            background: #e2e9dd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            background: #4d9a59;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+        }
+
+        .result-message {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #56665a;
+        }
+
+        .info-block {
+            margin-top: 20px;
+        }
+
+        .info-block h4 {
+            margin-bottom: 7px;
+            font-family: "Manrope", sans-serif;
+            font-size: 14px;
+        }
+
+        .info-block p {
+            color: #617064;
+            font-size: 13px;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .info-block ul {
+            margin: 8px 0 0 18px;
+            color: #617064;
+            font-size: 13px;
+        }
+
+        .info-block li {
+            margin-bottom: 5px;
+        }
+
+        /* HOW IT WORKS */
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 61px;
+            height: 61px;
+            margin: 0 auto 19px;
+            display: grid;
+            place-items: center;
+            border-radius: 19px;
+            background: var(--green-light);
+            color: var(--green);
+            font-family: "Manrope", sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .step-card h3 {
+            margin-bottom: 9px;
+            font-size: 17px;
+        }
+
+        .step-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* CTA */
+
+        .cta-section {
+            padding: 0 0 82px;
+        }
+
+        .cta-box {
+            position: relative;
+            overflow: hidden;
+            padding: 52px 35px;
+            border-radius: 25px;
+            background: var(--green-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-box::before,
+        .cta-box::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+        }
+
+        .cta-box::before {
+            width: 240px;
+            height: 240px;
+            top: -140px;
+            left: -50px;
+        }
+
+        .cta-box::after {
+            width: 300px;
+            height: 300px;
+            bottom: -220px;
+            right: -40px;
+        }
+
+        .cta-box h2 {
+            position: relative;
+            z-index: 1;
+            font-size: clamp(28px, 4vw, 40px);
+            letter-spacing: -1px;
+        }
+
+        .cta-box p {
+            position: relative;
+            z-index: 1;
+            max-width: 570px;
+            margin: 14px auto 25px;
+            color: #d0e0d2;
+            font-size: 14px;
+        }
+
+        .cta-box .primary-btn {
+            position: relative;
+            z-index: 1;
+            background: var(--lime);
+            color: var(--green-dark);
+        }
+
+        .cta-box .primary-btn:hover {
+            background: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 27px 0;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer-brand {
+            color: var(--green-dark);
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .disclaimer {
+            margin-top: 8px;
+            max-width: 750px;
+            font-size: 11px;
+            color: #929b92;
+            line-height: 1.7;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .hero-copy {
+                text-align: center;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions,
+            .hero-note {
+                justify-content: center;
+            }
+
+            .hero-art {
+                min-height: 390px;
+            }
+
+            .art-circle {
+                width: 330px;
+            }
+
+            .plant-illustration {
+                transform: scale(0.85);
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .scanner-layout {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .scanner-intro {
+                max-width: 650px;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .container {
+                width: 92%;
+            }
+
+            .nav-inner {
+                min-height: 70px;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .brand-icon {
+                width: 37px;
+                height: 37px;
+            }
+
+            .nav-links {
+                gap: 12px;
+                font-size: 12px;
+            }
+
+            .nav-links a:not(.nav-cta) {
+                display: none;
+            }
+
+            .nav-cta {
+                padding: 10px 13px;
+            }
+
+            .hero {
+                padding: 52px 0 55px;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-art {
+                min-height: 330px;
+            }
+
+            .art-circle {
+                width: 275px;
+            }
+
+            .plant-illustration {
+                transform: scale(0.72);
+            }
+
+            .floating-card {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .floating-card .icon {
+                width: 32px;
+                height: 32px;
+                font-size: 17px;
+            }
+
+            .floating-card strong {
+                font-size: 11px;
+            }
+
+            .floating-card small {
+                font-size: 9px;
+            }
+
+            .card-top {
+                right: -3px;
+                top: 22px;
+            }
+
+            .card-bottom {
+                left: -3px;
+                bottom: 20px;
+            }
+
+            .section {
+                padding: 58px 0;
+            }
+
+            .feature-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .feature-card {
+                padding: 24px;
+            }
+
+            .scanner-card {
+                padding: 19px;
+            }
+
+            .drop-zone {
+                min-height: 210px;
+                padding: 18px;
+            }
+
+            .scanner-actions {
+                flex-direction: column;
+            }
+
+            .cta-section {
+                padding-bottom: 55px;
+            }
+
+            .cta-box {
+                padding: 40px 20px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+
+
+
+        /* PLANT HEALTH ANALYTICS */
+
+        .analytics-section {
+            background: #f0f4eb;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .analytics-card {
+            padding: 26px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 19px;
+            box-shadow: 0 8px 25px rgba(31, 72, 46, 0.04);
+        }
+
+        .analytics-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: var(--green-light);
+            font-size: 23px;
+            margin-bottom: 18px;
+        }
+
+        .analytics-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .analytics-card h3 {
+            margin-top: 8px;
+            color: var(--green-dark);
+            font-size: 34px;
+            overflow-wrap: anywhere;
+        }
+
+        .analytics-chart-card {
+            padding: 30px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+        }
+
+        .analytics-chart-card > h3 {
+            font-size: 20px;
+        }
+
+        .chart-description {
+            margin-top: 6px;
+            margin-bottom: 28px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .chart-row {
+            margin-top: 22px;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 9px;
+            font-size: 13px;
+        }
+
+        .chart-label strong {
+            color: var(--green-dark);
+        }
+
+        .chart-track {
+            width: 100%;
+            height: 13px;
+            overflow: hidden;
+            background: #edf0e9;
+            border-radius: 20px;
+        }
+
+        .chart-bar {
+            width: 0;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .healthy-bar {
+            background: #4d9a59;
+        }
+
+        .disease-bar {
+            background: #d99a45;
+        }
+
+        .chart-note {
+            margin-top: 25px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 620px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+                gap: 13px;
+            }
+
+            .analytics-card {
+                padding: 21px;
+            }
+
+            .analytics-chart-card {
+                padding: 20px;
+            }
+        }
+/* SCAN HISTORY */
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .history-header p {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+
+        .history-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.history-filter {
+    min-height: 43px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.history-filter:focus {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+}
+
+        .history-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .history-empty {
+            padding: 38px 20px;
+            text-align: center;
+            background: white;
+            border: 1px dashed #cbd9c7;
+            border-radius: 18px;
+        }
+
+        .history-empty span {
+            font-size: 36px;
+        }
+
+        .history-empty h3 {
+            margin-top: 12px;
+            font-size: 18px;
+        }
+
+        .history-empty p {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 22px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            box-shadow: 0 8px 25px rgba(31, 72, 46, 0.04);
+        }
+
+        
+
+        .history-item h3 {
+            font-size: 16px;
+            overflow-wrap: anywhere;
+        }
+
+        .history-item p {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .history-confidence {
+            color: var(--green) !important;
+            font-weight: 800;
+            font-size: 14px !important;
+        }
+
+        @media (max-width: 620px) {
+            .history-item {
+                padding: 17px;
+            }
+
+            .history-header .secondary-btn {
+                min-height: 43px;
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a href="#home" class="brand">
+                <span class="brand-icon">🌿</span>
+                <span>PlantGuard<span>AI</span></span>
+            </a>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it works</a>
+                <a href="#scanner" class="nav-cta">Scan a Leaf ↗</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero" id="home">
+            <div class="container hero-grid">
+
+                <div class="hero-copy">
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        AI-powered plant health
+                    </div>
+
+                    <h1>
+                        HEALTHY PLANTS.<br>
+                        <span class="highlight">HAPPIER HARVESTS.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Your plants deserve the best care. Upload a leaf image
+                        and let artificial intelligence help you identify
+                        possible plant diseases and understand what to do next.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#scanner" class="primary-btn">
+                            🌱 Check Your Plant
+                            <span>→</span>
+                        </a>
+
+                        <a href="#how-it-works" class="secondary-btn">
+                            How it works
+                        </a>
+                    </div>
+
+                    <div class="hero-note">
+                        <span>✓</span>
+                        Simple to use · Image-based prediction · Helpful insights
+                    </div>
+                </div>
+
+                <div class="hero-art" aria-label="Illustration of a healthy potted plant">
+                    <div class="art-circle">
+
+                        <div class="plant-illustration">
+                            <div class="stem"></div>
+                            <div class="leaf leaf-one"></div>
+                            <div class="leaf leaf-two"></div>
+                            <div class="leaf leaf-three"></div>
+                            <div class="leaf leaf-four"></div>
+                            <div class="leaf leaf-five"></div>
+                            <div class="pot"></div>
+                            <div class="pot-rim"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="floating-card card-top">
+                        <div class="icon">🔬</div>
+                        <div>
+                            <strong>AI Analysis</strong>
+                            <small>Image-based prediction</small>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-bottom">
+                        <div class="icon">🌱</div>
+                        <div>
+                            <strong>Better Plant Care</strong>
+                            <small>Learn about plant health</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section class="section features-section" id="features">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">What PlantGuard offers</div>
+                    <h2>A smarter way to care for your plants</h2>
+                    <p>
+                        Understand possible plant health problems with a
+                        simple image upload and easy-to-read results.
+                    </p>
+                </div>
+
+                <div class="feature-grid">
+              
+                    <article class="feature-card">
+    <div class="feature-icon">📸</div>
+    <h3>Easy Leaf Scanning</h3>
+    <p>
+        Upload a picture of a plant leaf directly from
+        your computer or phone to begin the analysis.
+    </p>
+</article>
+
+<article class="feature-card">
+    <div class="feature-icon">🧠</div>
+    <h3>AI-Powered Prediction</h3>
+    <p>
+        A trained deep-learning model analyses the image
+        and predicts a supported plant-health category.
+    </p>
+</article>
+
+<article class="feature-card">
+    <div class="feature-icon">🌿</div>
+    <h3>Care Information</h3>
+    <p>
+        View available information about the predicted
+        condition, including symptoms and prevention tips.
+    </p>
+</article>
+
+<article class="feature-card">
+    <div class="feature-icon">📄</div>
+    <h3>Download Scan Reports</h3>
+    <p>
+        Download a report containing your plant prediction,
+        confidence score, and available care information.
+    </p>
+</article>
+
+<article class="feature-card">
+    <div class="feature-icon">📊</div>
+    <h3>Scan History and Analytics</h3>
+    <p>
+        Review previous plant scans and track summaries
+        of healthy and possible disease predictions.
+    </p>
+</article>
+                    
+
+                    
+
+                   
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SCANNER SECTION -->
+        <section class="section scanner-section" id="scanner">
+            <div class="container scanner-layout">
+
+                <div class="scanner-intro">
+                    <div class="eyebrow">Your plant health check</div>
+
+                    <h2>Let's take a closer look at your leaf.</h2>
+
+                    <p>
+                        Choose a clear picture of a leaf. PlantGuard-AI will
+                        send it to the trained model and display the
+                        prediction returned by the backend.
+                    </p>
+
+                    <div class="scanner-tips">
+                        <div class="tip">
+                            <span>✓</span>
+                            <p>Use a clear, well-lit photograph.</p>
+                        </div>
+
+                        <div class="tip">
+                            <span>✓</span>
+                            <p>Keep the leaf visible and in focus.</p>
+                        </div>
+
+                        <div class="tip">
+                            <span>✓</span>
+                            <p>Choose a JPG, JPEG, or PNG image.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scanner-card">
+                    <h3>Scan your plant 🌱</h3>
+
+                    <p class="scanner-subtitle">
+                        Upload a leaf image to get your prediction.
+                    </p>
+
+                    <form id="uploadForm">
+
+                        <input
+                            type="file"
+                            id="imageInput"
+                            name="image"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
+
+                        <div
+                            class="drop-zone"
+                            id="dropZone"
+                            role="button"
+                            tabindex="0"
+                            aria-label="Choose or drop a plant leaf image"
+                        >
+                            <div class="upload-icon">↑</div>
+
+                            <strong>Drag and drop your leaf image</strong>
+
+                            <p>
+                                or <span class="browse-text">browse files</span>
+                                from your device
+                            </p>
+
+                            <div class="file-types">
+                                JPG, JPEG, PNG or WEBP
+                            </div>
+
+                            <div class="preview-wrap" id="previewWrap">
+                                <img id="imagePreview" alt="Selected leaf preview">
+                                <div class="file-name" id="fileName"></div>
+                            </div>
+                        </div>
+
+                        <div class="scanner-actions">
+                            <button
+                                type="button"
+                                class="secondary-btn"
+                                id="removeButton"
+                                disabled
+                            >
+                                Remove image
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="primary-btn"
+                                id="analyzeButton"
+                                disabled
+                            >
+                                Analyze Leaf →
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <div
+                        class="status-message"
+                        id="statusMessage"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+
+                    <!-- PREDICTION RESULTS -->
+                    <div class="result-card" id="resultCard">
+
+                        <span class="result-label">Analysis complete</span>
+
+                        <h3 id="predictedClass">Prediction</h3>
+<p class="health-status neutral" id="healthStatus">
+    Waiting for analysis
+</p>
+
+                        <div class="confidence-row">
+                            <span>Model confidence</span>
+                            <strong id="confidenceValue">--</strong>
+                        </div>
+
+                        <div
+                            class="progress-track"
+                            role="progressbar"
+                            aria-label="Prediction confidence"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="0"
+                            id="confidenceProgress"
+                        >
+                            <div class="progress-fill" id="confidenceFill"></div>
+                        </div>
+
+                        <p class="result-message" id="resultMessage"></p>
+
+                        <div class="info-block" id="aboutBlock">
+                            <h4>About this condition</h4>
+                            <p id="aboutText"></p>
+                        </div>
+
+                        <div class="info-block" id="symptomsBlock">
+                            <h4>Possible symptoms</h4>
+                            <p id="symptomsText"></p>
+                        </div>
+
+                        <div class="info-block" id="preventionBlock">
+                            <h4>Prevention and care</h4>
+                            <p id="preventionText"></p>
+                        </div>
+
+
+                        <div class="info-block" id="careRecommendationsBlock">
+    <h4>🌱 Care Recommendations</h4>
+    <p id="careRecommendationsText"></p>
+</div>
+
+                    <button
+    type="button"
+    class="primary-btn"
+    id="downloadReportButton"
+>
+    📄 Download Scan Report
+</button>
+
+<button
+    type="button"
+    class="secondary-btn scan-again-btn"
+    id="scanAgainButton"
+>
+    ↻ Scan Another Leaf
+</button>    
+
+
+                        
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PLANT HEALTH ANALYTICS -->
+        <section class="section analytics-section" id="analytics">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Your plant health overview</div>
+                    <h2>Plant Health Analytics</h2>
+                    <p>
+                        Track your plant scans and explore your prediction history.
+                    </p>
+                </div>
+
+                <div class="analytics-grid">
+
+                    <article class="analytics-card">
+                        <div class="analytics-icon">📊</div>
+                        <p>Total Scans</p>
+                        <h3 id="totalScans">0</h3>
+                    </article>
+
+                    <article class="analytics-card">
+                        <div class="analytics-icon">🌿</div>
+                        <p>Healthy Predictions</p>
+                        <h3 id="healthyScans">0</h3>
+                    </article>
+
+                    <article class="analytics-card">
+                        <div class="analytics-icon">🔬</div>
+                        <p>Possible Disease Predictions</p>
+                        <h3 id="diseaseScans">0</h3>
+                    </article>
+
+                </div>
+
+                <div class="analytics-chart-card">
+                    <h3>Prediction Summary</h3>
+                    <p class="chart-description">
+                        Comparison of healthy and possible disease predictions.
+                    </p>
+
+                    <div class="chart-row">
+                        <div class="chart-label">
+                            <span>🌿 Healthy</span>
+                            <strong id="healthyChartCount">0</strong>
+                        </div>
+                        <div class="chart-track">
+                            <div class="chart-bar healthy-bar" id="healthyChartBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="chart-row">
+                        <div class="chart-label">
+                            <span>🔬 Possible Disease</span>
+                            <strong id="diseaseChartCount">0</strong>
+                        </div>
+                        <div class="chart-track">
+                            <div class="chart-bar disease-bar" id="diseaseChartBar"></div>
+                        </div>
+                    </div>
+
+                    <p class="chart-note" id="analyticsNote">
+                        Complete a scan to see your analytics.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+
+
+        <!-- SCAN HISTORY SECTION -->
+        <section class="section" id="scanHistory">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Your previous scans</div>
+                    <h2>Plant Scan History</h2>
+                    <p>
+                        Review your previous plant predictions,
+                        confidence scores, and scan dates.
+                    </p>
+                </div>
+
+                <div class="history-header">
+    <p id="historyCount">Total scans: 0</p>
+
+    <div class="history-controls">
+        <select id="historyFilter" class="history-filter">
+            <option value="all">All scans</option>
+            <option value="healthy">Healthy</option>
+            <option value="disease">Possible disease</option>
+        </select>
+
+        <button
+            type="button"
+            class="secondary-btn"
+            id="clearHistoryButton"
+        >
+            Clear History
+        </button>
+    </div>
+</div>
+
+                <div id="historyList" class="history-list">
+                    <div class="history-empty" id="historyEmpty">
+                        <span>🌿</span>
+                        <h3>No scans yet</h3>
+                        <p>Your completed plant scans will appear here.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+        
+
+
+
+        <!-- HOW IT WORKS -->
+        <section class="section" id="how-it-works">
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Simple process</div>
+                    <h2>Three steps to get started</h2>
+                    <p>
+                        PlantGuard-AI makes the image-prediction process
+                        straightforward.
+                    </p>
+                </div>
+
+                <div class="steps-grid">
+
+                    <article class="step-card">
+                        <div class="step-number">01</div>
+                        <h3>Upload a leaf</h3>
+                        <p>
+                            Select a plant leaf image from your device
+                            or drag it into the upload area.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-number">02</div>
+                        <h3>Run AI analysis</h3>
+                        <p>
+                            Your image is sent to the Flask backend,
+                            which uses the trained model to make a prediction.
+                        </p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-number">03</div>
+                        <h3>Explore the result</h3>
+                        <p>
+                            Read the predicted category, confidence score,
+                            and any available care information.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>Give your plants a little more care.</h2>
+
+                    <p>
+                        Start with a leaf image and explore what your
+                        AI-powered plant health checker can identify.
+                    </p>
+
+                    <a href="#scanner" class="primary-btn">
+                        Scan a Leaf Now →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-inner">
+            <div>
+                <div class="footer-brand">🌿 PlantGuard-AI</div>
+
+                <p class="disclaimer">
+                    PlantGuard-AI is an educational image-classification
+                    project. Predictions are limited to the categories
+                    supported by its trained model and may be incorrect.
+                    For important crop-health decisions, consult a qualified
+                    agricultural expert.
+                </p>
+            </div>
+
+            <p>Built with AI and a love for plants 🌱</p>
+        </div>
+    </footer>
+
+    <script>
+        const uploadForm = document.getElementById("uploadForm");
+        const imageInput = document.getElementById("imageInput");
+        const dropZone = document.getElementById("dropZone");
+        const imagePreview = document.getElementById("imagePreview");
+        const previewWrap = document.getElementById("previewWrap");
+        const fileName = document.getElementById("fileName");
+        const removeButton = document.getElementById("removeButton");
+        const analyzeButton = document.getElementById("analyzeButton");
+        const statusMessage = document.getElementById("statusMessage");
+        const resultCard = document.getElementById("resultCard");
+
+        let previewUrl = null;
+        let selectedFile = null;
+
+        // SCAN HISTORY STORAGE
+
+        const HISTORY_KEY = "plantGuardScanHistory";
+
+        const historyList = document.getElementById("historyList");
+        const historyCount = document.getElementById("historyCount");
+        const clearHistoryButton = document.getElementById("clearHistoryButton");
+        
+        const historyFilter = document.getElementById("historyFilter");
+
+        function getScanHistory() {
+            try {
+                return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+            } catch (error) {
+                return [];
+            }
+        }
+
+
+function renderAnalytics() {
+    const history = getScanHistory();
+
+    const total = history.length;
+
+    console.log("ANALYTICS HISTORY:", history);
+    console.log("ANALYTICS TOTAL:", total);
+
+    const healthy = history.filter(function (scan) {
+        return /healthy/i.test(String(scan.prediction || ""));
+    }).length;
+
+    const disease = total - healthy;
+
+    document.getElementById("totalScans").textContent = total;
+    document.getElementById("healthyScans").textContent = healthy;
+    document.getElementById("diseaseScans").textContent = disease;
+
+    document.getElementById("healthyChartCount").textContent = healthy;
+    document.getElementById("diseaseChartCount").textContent = disease;
+
+    const healthyPercent = total > 0 ? (healthy / total) * 100 : 0;
+    const diseasePercent = total > 0 ? (disease / total) * 100 : 0;
+
+    document.getElementById("healthyChartBar").style.width =
+        healthyPercent + "%";
+
+    document.getElementById("diseaseChartBar").style.width =
+        diseasePercent + "%";
+
+    document.getElementById("analyticsNote").textContent = total > 0
+        ? "Based on " + total + " saved scan(s). These are AI predictions, not confirmed diagnoses."
+        : "Complete a scan to see your analytics.";
+}
+
+function renderScanHistory() {
+    const history = getScanHistory();
+
+    renderAnalytics();
+
+    const filterValue = historyFilter.value;
+
+    const filteredHistory = history.filter((scan) => {
+        const isHealthy = /healthy/i.test(String(scan.prediction || ""));
+
+        if (filterValue === "healthy") {
+            return isHealthy;
+        }
+
+        if (filterValue === "disease") {
+            return !isHealthy;
+        }
+
+        return true;
+    });
+
+    historyCount.textContent =
+        filterValue === "all"
+            ? `Total scans: ${history.length}`
+            : `Showing ${filteredHistory.length} of ${history.length} scans`;
+
+    historyList.innerHTML = "";
+
+    if (history.length === 0) {
+        historyList.innerHTML = `
+            <div class="history-empty">
+                <span>🌿</span>
+                <h3>No scans yet</h3>
+                <p>Your completed plant scans will appear here.</p>
+            </div>
+        `;
+        return;
+    }
+
+    if (filteredHistory.length === 0) {
+        historyList.innerHTML = `
+            <div class="history-empty">
+                <span>🔎</span>
+                <h3>No matching scans</h3>
+                <p>There are no scans in this category yet.</p>
+            </div>
+        `;
+        return;
+    }
+
+    filteredHistory.forEach((scan) => {
+        const item = document.createElement("article");
+        item.className = "history-item";
+
+        if (scan.imageData) {
+            const thumbnail = document.createElement("img");
+            thumbnail.className = "history-thumb";
+            thumbnail.src = scan.imageData;
+            thumbnail.alt = "Uploaded plant leaf";
+            item.appendChild(thumbnail);
+        }
+
+        const details = document.createElement("div");
+        details.className = "history-details";
+
+        const title = document.createElement("h3");
+        title.textContent = scan.prediction;
+
+        const meta = document.createElement("p");
+        meta.textContent =
+            `${scan.filename} • ${new Date(scan.date).toLocaleString()}`;
+
+        const badge = document.createElement("p");
+        const isHealthy = /healthy/i.test(scan.prediction);
+
+        badge.textContent = isHealthy
+            ? "✓ Predicted healthy"
+            : "⚠ Possible disease";
+
+        const score = document.createElement("p");
+        score.className = "history-confidence";
+        score.textContent =
+            `${Number(scan.confidence).toFixed(2)}% confidence`;
+
+        details.append(title, meta, badge);
+        item.append(details, score);
+        historyList.appendChild(item);
+    });
+}
+
+function createThumbnail(image) {
+    try {
+        if (!image || !image.complete || !image.naturalWidth) {
+            return null;
+        }
+
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        canvas.width = 120;
+        canvas.height = 120;
+
+        const scale = Math.min(
+            110 / image.naturalWidth,
+            110 / image.naturalHeight
+        );
+
+        const width = image.naturalWidth * scale;
+        const height = image.naturalHeight * scale;
+
+        context.drawImage(
+            image,
+            (120 - width) / 2,
+            (120 - height) / 2,
+            width,
+            height
+        );
+
+        return canvas.toDataURL("image/jpeg", 0.6);
+
+    } catch (error) {
+        console.error("Could not create thumbnail:", error);
+        return null;
+    }
+}
+
+function saveScanToHistory(prediction, confidence, filename, imageData) {
+    const history = getScanHistory();
+
+    const newScan = {
+        prediction: prediction,
+        confidence: confidence,
+        filename: filename,
+        date: new Date().toISOString(),
+        imageData: imageData
+    };
+
+    try {
+        history.unshift(newScan);
+
+        localStorage.setItem(
+            HISTORY_KEY,
+            JSON.stringify(history.slice(0, 30))
+        );
+
+        renderScanHistory();
+
+    } catch (error) {
+        console.error("Could not save scan history:", error);
+
+        try {
+            delete newScan.imageData;
+
+            const updatedHistory = getScanHistory();
+            updatedHistory.unshift(newScan);
+
+            localStorage.setItem(
+                HISTORY_KEY,
+                JSON.stringify(updatedHistory.slice(0, 30))
+            );
+
+            renderScanHistory();
+
+        } catch (fallbackError) {
+            console.error("Could not save scan:", fallbackError);
+        }
+    }
+}
+    
+
+
+
+        historyFilter.addEventListener("change", renderScanHistory);
+
+clearHistoryButton.addEventListener("click", function () {
+    localStorage.removeItem(HISTORY_KEY);
+    renderScanHistory();
+});
+
+renderScanHistory();
+
+
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        function showStatus(message, type = "") {
+            statusMessage.textContent = message;
+            statusMessage.className = "status-message";
+
+            if (type) {
+                statusMessage.classList.add(type);
+            }
+
+            statusMessage.style.display = message ? "block" : "none";
+        }
+
+        function hideResults() {
+            resultCard.style.display = "none";
+        }
+
+        function resetPreview() {
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl);
+                previewUrl = null;
+            }
+
+            selectedFile = null;
+            imageInput.value = "";
+            imagePreview.removeAttribute("src");
+            previewWrap.style.display = "none";
+            fileName.textContent = "";
+            analyzeButton.disabled = true;
+            removeButton.disabled = true;
+            hideResults();
+        }
+
+        function selectImage(file) {
+            if (!file) {
+                return;
+            }
+
+            if (!allowedTypes.includes(file.type)) {
+                showStatus(
+                    "Please select a JPG, JPEG, PNG, or WEBP image.",
+                    "error"
+                );
+                return;
+            }
+
+            const maxSize = 10 * 1024 * 1024;
+
+            if (file.size > maxSize) {
+                showStatus(
+                    "The image is too large. Please choose an image under 10 MB.",
+                    "error"
+                );
+                return;
+            }
+
+            if (previewUrl) {
+                URL.revokeObjectURL(previewUrl);
+            }
+
+            selectedFile = file;
+            previewUrl = URL.createObjectURL(file);
+
+            imagePreview.src = previewUrl;
+            fileName.textContent = file.name;
+            previewWrap.style.display = "block";
+
+            analyzeButton.disabled = false;
+            removeButton.disabled = false;
+
+            hideResults();
+            showStatus("Image selected successfully. Ready to analyze.");
+        }
+
+        dropZone.addEventListener("click", function (event) {
+            if (event.target.closest("#previewWrap")) {
+                return;
+            }
+
+            imageInput.click();
+        });
+
+        dropZone.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                imageInput.click();
+            }
+        });
+
+        imageInput.addEventListener("change", function () {
+            if (imageInput.files.length > 0) {
+                selectImage(imageInput.files[0]);
+            }
+        });
+
+        ["dragenter", "dragover"].forEach(function (eventName) {
+            dropZone.addEventListener(eventName, function (event) {
+                event.preventDefault();
+                dropZone.classList.add("dragover");
+            });
+        });
+
+        ["dragleave", "drop"].forEach(function (eventName) {
+            dropZone.addEventListener(eventName, function (event) {
+                event.preventDefault();
+                dropZone.classList.remove("dragover");
+            });
+        });
+
+        dropZone.addEventListener("drop", function (event) {
+            const files = event.dataTransfer.files;
+
+            if (files.length > 0) {
+                selectImage(files[0]);
+            }
+        });
+
+        removeButton.addEventListener("click", function () {
+            resetPreview();
+            showStatus("Image removed. Choose another leaf image.");
+        });
+
+document.getElementById("scanAgainButton").addEventListener("click", function () {
+    resetPreview();
+    showStatus("Choose another leaf image to begin a new scan.");
+
+    document.getElementById("scanner").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
+
+        function displayInfo(elementId, value) {
+            const element = document.getElementById(elementId);
+            const block = element.closest(".info-block");
+
+            if (
+                value === undefined ||
+                value === null ||
+                String(value).trim() === ""
+            ) {
+                block.style.display = "none";
+                element.textContent = "";
+                return;
+            }
+
+            block.style.display = "block";
+            element.textContent = String(value);
+        }
+
+        function displayResults(data) {
+            const predictedClass =
+                data.predicted_class ??
+                data.prediction ??
+                data.class_name ??
+                "Prediction unavailable";
+
+            document.getElementById("predictedClass").textContent =
+                String(predictedClass).replaceAll("_", " ");
+
+const healthStatus = document.getElementById("healthStatus");
+const normalizedPrediction = String(predictedClass).replaceAll("_", " ");
+
+if (/healthy/i.test(normalizedPrediction)) {
+    healthStatus.textContent = "✓ Predicted healthy";
+    healthStatus.className = "health-status";
+} else if (/blight|disease|virus|spot|mold|mould|rot/i.test(normalizedPrediction)) {
+    healthStatus.textContent = "⚠ Possible plant disease";
+    healthStatus.className = "health-status warning";
+} else {
+    healthStatus.textContent = "Prediction received";
+    healthStatus.className = "health-status neutral";
+}
+
+            let confidence = Number(data.confidence);
+
+            if (!Number.isFinite(confidence)) {
+                confidence = 0;
+            }
+
+            // Accept either a decimal (0.95) or a percentage (95).
+            if (confidence > 0 && confidence <= 1) {
+                confidence = confidence * 100;
+            }
+
+            confidence = Math.max(0, Math.min(100, confidence));
+        const thumbnailData = createThumbnail(imagePreview);
+
+saveScanToHistory(
+    String(predictedClass).replaceAll("_", " "),
+    confidence,
+    selectedFile ? selectedFile.name : "Leaf image",
+    thumbnailData
+);
+
+            document.getElementById("confidenceValue").textContent =
+                confidence.toFixed(2) + "%";
+
+            document.getElementById("confidenceFill").style.width =
+                confidence + "%";
+
+            const progress = document.getElementById("confidenceProgress");
+            progress.setAttribute("aria-valuenow", confidence.toFixed(0));
+
+            document.getElementById("resultMessage").textContent =
+                data.message || "";
+
+            const diseaseInfo = data.disease_info || {};
+
+
+            latestScanReport = {
+    prediction: normalizedPrediction,
+    confidence: confidence.toFixed(2),
+    about: diseaseInfo.about || data.about || "Not available",
+    symptoms: (diseaseInfo.symptoms || data.symptoms || []).join("\n"),
+    prevention: (diseaseInfo.prevention || data.prevention || []).join("\n"),
+    care: (diseaseInfo.care_recommendations || data.care_recommendations || []).join("\n")
+};
+
+            displayInfo(
+                "aboutText",
+                diseaseInfo.about || data.about
+            );
+
+            displayInfo(
+                "symptomsText",
+                diseaseInfo.symptoms || data.symptoms
+            );
+
+            displayInfo(
+                "preventionText",
+                diseaseInfo.prevention || data.prevention
+            );
+
+
+            displayInfo(
+    "careRecommendationsText",
+    diseaseInfo.care_recommendations || data.care_recommendations
+);
+
+            resultCard.style.display = "block";
+            resultCard.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
+        }
+
+const downloadReportButton = document.getElementById("downloadReportButton");
+
+let latestScanReport = null;
+
+downloadReportButton.addEventListener("click", function () {
+    if (!latestScanReport) {
+        alert("Please complete a plant scan before downloading the report.");
+        return;
+    }
+
+    const reportText = `
+PLANTGUARD-AI - PLANT HEALTH REPORT
+===================================
+
+Prediction: ${latestScanReport.prediction}
+Confidence: ${latestScanReport.confidence}%
+
+ABOUT:
+${latestScanReport.about}
+
+SYMPTOMS:
+${latestScanReport.symptoms}
+
+PREVENTION:
+${latestScanReport.prevention}
+
+CARE RECOMMENDATIONS:
+${latestScanReport.care}
+
+Disclaimer: This report contains AI predictions, not a confirmed diagnosis.
+`;
+
+    const blob = new Blob([reportText], {
+        type: "text/plain"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "PlantGuard-AI-Scan-Report.txt";
+    link.click();
+
+    URL.revokeObjectURL(url);
+});
+
+
+
+        uploadForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            if (!selectedFile) {
+                showStatus("Please select a leaf image first.", "error");
+                return;
+            }
+
+            const formData = new FormData();
+
+            // Keep the field name "image" compatible with the Flask backend.
+            formData.append("image", selectedFile);
+
+            analyzeButton.disabled = true;
+            removeButton.disabled = true;
+            hideResults();
+
+            showStatus(
+                "Analyzing your leaf image... Please wait.",
+                "loading"
+            );
+
+            analyzeButton.textContent = "Analyzing...";
+
+            try {
+                // The existing Flask endpoint is /predict.
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json().catch(function () {
+                    return {};
+                });
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.error ||
+                        data.message ||
+                        "The server could not analyze this image."
+                    );
+                }
+
+                if (
+                    data.error ||
+                    data.success === false
+                ) {
+                    throw new Error(
+                        data.error ||
+                        data.message ||
+                        "The prediction could not be completed."
+                    );
+                }
+
+                displayResults(data);
+
+                showStatus(
+                    "Analysis complete! Your results are shown below.",
+                    "success"
+                );
+
+            } catch (error) {
+                console.error("PlantGuard-AI error:", error);
+
+                showStatus(
+                    error.message ||
+                    "Something went wrong. Please check that the Flask server is running.",
+                    "error"
+                );
+
+            } finally {
+                analyzeButton.disabled = !selectedFile;
+                removeButton.disabled = !selectedFile;
+                analyzeButton.textContent = "Analyze Leaf →";
+            }
+        });
+    </script>
+
+</body>
+</html>
